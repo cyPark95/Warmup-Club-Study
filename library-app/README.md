@@ -17,6 +17,18 @@
         - HTTP Response
             - HTTP 상태 200 OK, 결과 반환 X
     - 도서관 사용자의 목록을 볼 수 있다.
+        - HTTP Request
+            - HTTP Method : GET
+            - HTTP Path : /user
+            - 쿼리 : 없음
+        - HTTP Response
+          ```json
+          [{
+            "id": Long,
+            "name": String (null 불가능),
+            "age": Integer
+          }, ...]
+          ```
     - 도서관 사용자 이름을 업데이트 할 수 있다.
     - 도서관 사용자를 삭제할 수 있다.
 
