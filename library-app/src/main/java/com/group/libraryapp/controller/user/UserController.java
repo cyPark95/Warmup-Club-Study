@@ -4,8 +4,11 @@ import com.group.libraryapp.dto.user.request.UserCreateReqeust;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 // @RestController 어노테이션을 사용하면 Body에 데이터를 포함하여 응답을 전송할 수 있다.
@@ -43,12 +46,25 @@ public class UserController {
 
     @PutMapping("/user")
     public void updateUser(@RequestBody UserUpdateRequest request) {
+        String readSql = String.format("SELECT * FROM %s WHERE id = ?", TABLE);
+        boolean isUserNotExist = jdbcTemplate.query(readSql, (rs, rowNum) -> 0, request.id()).isEmpty();
+        if (isUserNotExist) {
+            // 예외 발생 시, Spring은 HTTP Status 500 Internal Server Error를 응답한다.
+            throw new IllegalArgumentException();
+        }
+
         String sql = String.format("UPDATE %s SET name = ? WHERE id = ?", TABLE);
         jdbcTemplate.update(sql, request.name(), request.id());
     }
 
     @DeleteMapping("/user")
     public void deleteUser(@RequestParam("name") String name) {
+        String readSql = String.format("SELECT * FROM %s WHERE name = ?", TABLE);
+        boolean isUserNotExist = jdbcTemplate.query(readSql, (rs, rowNum) -> 0, name).isEmpty();
+        if (isUserNotExist) {
+            throw new IllegalArgumentException();
+        }
+
         String sql = String.format("DELETE FROM %s WHERE name = ?", TABLE);
         jdbcTemplate.update(sql, name);
     }
