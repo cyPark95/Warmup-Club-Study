@@ -30,7 +30,26 @@
           }, ...]
           ```
     - 도서관 사용자 이름을 업데이트 할 수 있다.
+        - HTTP Request
+            - HTTP Method : PUT
+            - HTTP Path : /user
+            - HTTP Body (JSON)
+              ```json
+              {
+                "id": Long,
+                "name": String(변경되어야 하는 사용자 이름)
+              }
+              ```
+        - HTTP Response
+            - HTTP 상태 200 OK, 결과 반환 X
     - 도서관 사용자를 삭제할 수 있다.
+        - HTTP Request
+            - HTTP Method : DELETE
+            - HTTP Path : /user
+            - 쿼리 :
+                - 문자열 name (삭제되어야 하는 사용자 이름)
+        - HTTP Response
+            - HTTP 상태 200 OK, 결과 반환 X
 
 
 - 책
