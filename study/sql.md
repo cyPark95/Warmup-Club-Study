@@ -45,17 +45,17 @@ CREATE TABLE [테이블 이름] (
 >데이터 타입
 >
 > - 정수 타입
-    >     - tinyint : 1바이트 정수
+>     - tinyint : 1바이트 정수
 >     - int : 4바이트 정수
 >     - bigint : 8바이트 정수
 > - 실수 타입
-    >     - double : 8바이트 실수
+>     - double : 8바이트 실수
 >     - decimal(A, B) : 소수점을 B개 가지고 있는 전체 A자릿수 실수
 > - 문자열 타입
-    >     - char(A) : A글자가 들어갈 수 있는 문자열
+>     - char(A) : A글자가 들어갈 수 있는 문자열
 >     - varchar(A) : 최대 A글자가 들어갈 수 있는 문자열
 > - 날짜, 시간 타입
-    >     - date : 날짜, yyyy-MM-dd 형식
+>     - date : 날짜, yyyy-MM-dd 형식
 >     - time : 시간, HH:mm:ss 형식
 >     - datetime : 날짜와 시간을 합친 형식, yyyy-MM-dd HH:mm:ss 형식
 

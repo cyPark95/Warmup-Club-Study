@@ -21,7 +21,6 @@ DISK: 데이터를 영구적으로 저장하는 장기 기록 장치
 - 데이터를 **구조화** 시켜 저장하고, 관리하는 시스템
 - RDB(Relational Database)는 데이터를 **표(table) 형식으로 구조화**하여 관리한다.
     - 대표적으로 MySQL, PostgreSQL, Oracle 등 이 있다.
-- 
 
 ## SQL (Structured Query Language)
 
