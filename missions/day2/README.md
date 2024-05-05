@@ -26,7 +26,7 @@ Content-Type: application/json
 
 ![Postman1](https://github.com/cyPark95/Warmup-Club-Study/assets/139435149/42b1a890-c207-473d-ac0f-5764efe854f7)
 
-## 문제 1
+## 문제 2
 
 ![문제2](https://github.com/cyPark95/Warmup-Club-Study/assets/139435149/9e6e5446-7e4d-4656-bcd2-52ef1ed9be85)
 
@@ -52,7 +52,7 @@ Content-Type: application/json
 
 ![Postman2](https://github.com/cyPark95/Warmup-Club-Study/assets/139435149/496046b0-0012-4cc2-9a06-487fb7045fd6)
 
-## 문제 1
+## 문제 3
 
 ![문제3](https://github.com/cyPark95/Warmup-Club-Study/assets/139435149/3bb7542c-0872-40d3-86f1-a80d2028093e)
 
