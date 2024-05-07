@@ -4,17 +4,18 @@ import com.group.libraryapp.dto.user.request.UserCreateReqeust;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
 import com.group.libraryapp.repository.user.UserRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 // Service: 분기 처리나 비즈니스 로직을 담당
+@Service
 public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(JdbcTemplate jdbcTemplate) {
-        this.userRepository = new UserRepository(jdbcTemplate);
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public void saveUser(UserCreateReqeust request) {
