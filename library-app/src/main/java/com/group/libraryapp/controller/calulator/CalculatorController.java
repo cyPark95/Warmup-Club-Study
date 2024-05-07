@@ -1,7 +1,7 @@
 package com.group.libraryapp.controller.calulator;
 
-import com.group.libraryapp.dto.Calculator.request.CalculatorAddRequest;
-import com.group.libraryapp.dto.Calculator.request.CalculatorMultiplyRequest;
+import com.group.libraryapp.dto.calculator.request.CalculatorAddRequest;
+import com.group.libraryapp.dto.calculator.request.CalculatorMultiplyRequest;
 import org.springframework.web.bind.annotation.*;
 
 // 해당 Class를 Controller로 등록한다.

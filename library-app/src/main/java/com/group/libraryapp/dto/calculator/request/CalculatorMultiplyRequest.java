@@ -1,4 +1,4 @@
-package com.group.libraryapp.dto.Calculator.request;
+package com.group.libraryapp.dto.calculator.request;
 
 public record CalculatorMultiplyRequest(
         int number1,
