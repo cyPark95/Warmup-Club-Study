@@ -10,13 +10,13 @@ import java.util.List;
 @Primary
 // Repository: DB와의 접근을 담당
 @Repository
-public class UserRepository {
+public class UserJdbcRepository {
 
     private static final String TABLE = "user";
 
     private final JdbcTemplate jdbcTemplate;
 
-    public UserRepository(JdbcTemplate jdbcTemplate) {
+    public UserJdbcRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

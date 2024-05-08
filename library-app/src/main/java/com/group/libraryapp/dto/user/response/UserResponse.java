@@ -1,6 +1,6 @@
 package com.group.libraryapp.dto.user.response;
 
-import com.group.libraryapp.domain.User;
+import com.group.libraryapp.domain.user.User;
 
 // HTTP 결과를 JSON으로 반환하기 위해서는 Getter가 필요하다.
 public record UserResponse(
@@ -11,5 +11,9 @@ public record UserResponse(
 
     public static UserResponse from(long id, User user) {
         return new UserResponse(id, user.getName(), user.getAge());
+    }
+
+    public static UserResponse from(User user) {
+        return new UserResponse(user.getId(), user.getName(), user.getAge());
     }
 }
