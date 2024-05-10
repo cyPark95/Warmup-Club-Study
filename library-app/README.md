@@ -54,6 +54,17 @@
 
 - 책
     - 도서관에 책을 등록할 수 있다.
+        - HTTP Request
+            - HTTP Method : POST
+            - HTTP Path : /book
+            - HTTP Body (JSON)
+              ```json
+              {
+                "name": String
+              }
+              ```
+        - HTTP Response
+            - HTTP 상태 200 OK, 결과 반환 X
     - 사용자가 책을 빌릴 수 있다.
     - 다른 사람이 그 책을 진작 빌렸다면 빌릴 수 없다.
     - 사용자가 책을 반납할 수 있다.
