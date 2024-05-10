@@ -80,3 +80,15 @@
         - HTTP Response
             - HTTP 상태 200 OK, 결과 반환 X
     - 사용자가 책을 반납할 수 있다.
+        - HTTP Request
+            - HTTP Method : PUT
+            - HTTP Path : /book/return
+            - HTTP Body (JSON)
+              ```json
+              {
+                "userName": String,
+                "bookName": String
+              }
+              ```
+        - HTTP Response
+            - HTTP 상태 200 OK, 결과 반환 X
