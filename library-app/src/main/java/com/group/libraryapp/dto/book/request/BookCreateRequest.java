@@ -1,6 +1,6 @@
 package com.group.libraryapp.dto.book.request;
 
-public record SaveBookRequest(
+public record BookCreateRequest(
         String name
 ) {
 }

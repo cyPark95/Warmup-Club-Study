@@ -1,7 +1,8 @@
 package com.group.libraryapp.service.book;
 
-import com.group.libraryapp.dto.book.request.SaveBookRequest;
-import com.group.libraryapp.repository.book.BookRepository;
+import com.group.libraryapp.domain.book.Book;
+import com.group.libraryapp.dto.book.request.BookCreateRequest;
+import com.group.libraryapp.domain.book.BookRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +29,9 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public void saveBook(SaveBookRequest request) {
-        bookRepository.saveBook(request.name());
+    @Transactional
+    public void saveBook(BookCreateRequest request) {
+        Book book = new Book(request.name());
+        bookRepository.save(book);
     }
 }
