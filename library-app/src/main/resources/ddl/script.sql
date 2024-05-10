@@ -27,3 +27,13 @@ CREATE TABLE book
 
     PRIMARY KEY (id)
 );
+
+CREATE TABLE user_loan_history
+(
+    id        BIGINT AUTO_INCREMENT,
+    user_id   BIGINT,
+    book_name VARCHAR(255),
+    is_return BOOLEAN,
+
+    PRIMARY KEY (id)
+)
