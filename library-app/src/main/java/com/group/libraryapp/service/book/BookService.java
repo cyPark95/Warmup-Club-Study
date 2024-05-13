@@ -4,7 +4,6 @@ import com.group.libraryapp.domain.book.Book;
 import com.group.libraryapp.domain.book.BookRepository;
 import com.group.libraryapp.domain.user.User;
 import com.group.libraryapp.domain.user.UserRepository;
-import com.group.libraryapp.domain.user.loanhistory.UserLoanHistory;
 import com.group.libraryapp.domain.user.loanhistory.UserLoanHistoryRepository;
 import com.group.libraryapp.dto.book.request.BookCreateRequest;
 import com.group.libraryapp.dto.book.request.BookLoanRequest;
@@ -63,10 +62,13 @@ public class BookService {
                 .orElseThrow(IllegalArgumentException::new);
 
         // 5. 유저 정보와 책 정보 를 기반으로 대출기록 정보 생성
-        UserLoanHistory history = new UserLoanHistory(user.getId(), book.getName());
+//        UserLoanHistory history = new UserLoanHistory(user, book.getName());
 
         // 6. 대출기록 정보 저장
-        userLoanHistoryRepository.save(history);
+//        userLoanHistoryRepository.save(history);
+
+        // 영속성 전이(Cascade) 사용
+        user.loanBook(book.getName());
     }
 
     @Transactional
@@ -74,8 +76,6 @@ public class BookService {
         User user = userRepository.findByName(request.userName())
                 .orElseThrow(IllegalArgumentException::new);
 
-        UserLoanHistory history = userLoanHistoryRepository.findByUserIdAndBookName(user.getId(), request.bookName())
-                .orElseThrow(IllegalArgumentException::new);
-        history.doReturn();
+        user.returnBook(request.bookName());
     }
 }
