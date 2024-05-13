@@ -1,7 +1,10 @@
 ﻿package com.group.libraryapp.domain.user;
 
+import com.group.libraryapp.domain.user.loanhistory.UserLoanHistory;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +22,10 @@ public class User {
     private String name;
 
     private Integer age;
+
+    // 1: N 관계
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserLoanHistory> userLoanHistories = new ArrayList<>();
 
     protected User() {
     }
@@ -46,5 +53,9 @@ public class User {
 
     public void updateName(String name) {
         this.name = name;
+    }
+
+    public void loanBook(String bookName) {
+        this.userLoanHistories.add(new UserLoanHistory(this, bookName));
     }
 }
