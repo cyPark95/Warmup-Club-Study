@@ -1,4 +1,37 @@
 spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    # NON_KEYWORDS=USER옵션은 MySQL의 예약어인 USER 키워드를 비활성화 한다.
+    url: "jdbc:h2:mem:library;MODE=MYSQL;NON_KEYWORDS=USER"
+    username: "sa"
+    password: ""
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      # H2 콘솔 접속 활성화
+      enabled: true
+      path: /h2-console
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+      # 아래 있는 설정들은 특정 Profile에 실행된다.
+
   application:
     name: library-app
 
