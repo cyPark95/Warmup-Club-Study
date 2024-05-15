@@ -3,10 +3,7 @@ package com.group.miniproject.domain.team.entity;
 import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.global.entity.BaseDateTimeEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -14,6 +11,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(exclude = "employees")
 @Entity
 public class Team extends BaseDateTimeEntity {
 

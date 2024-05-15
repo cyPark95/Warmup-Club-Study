@@ -18,11 +18,16 @@ public class TeamService {
 
     @Transactional
     public void saveTeam(TeamRegisterRequest request) {
+        log.debug("Request Data: {}", request);
+
         Team team = request.toTeam();
+
+        log.debug("Save Team: {}", team);
         teamRepository.save(team);
     }
 
     public Team getTeamByName(String name) {
+        log.debug("Find Team Name: {}", name);
         return teamRepository.findByName(name)
                 .orElseThrow(() -> new IllegalArgumentException(String.format("존재하지 않는 팀 이름[%s] 입니다.", name)));
     }

@@ -20,7 +20,10 @@ public class EmployeeService {
 
     @Transactional
     public void saveEmployee(EmployeeRegisterRequest request) {
+        log.debug("Request Data: {}", request);
+
         Team team = teamService.getTeamByName(request.teamName());
+        log.debug("Find Team: {}", team);
 
         if (request.isManager() && team.hasManager()) {
             throw new IllegalArgumentException(String.format("[%s] 팀에는 이미 매니저가 존재합니다.", request.teamName()));
@@ -28,6 +31,8 @@ public class EmployeeService {
 
         Employee employee = request.toEmployee();
         employee.joinTeam(team);
+
+        log.debug("Save Employee: {}", employee);
         employeeRepository.save(employee);
     }
 }
