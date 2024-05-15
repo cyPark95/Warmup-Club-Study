@@ -1,5 +1,6 @@
 package com.group.miniproject.domain.employee.entity;
 
+import com.group.miniproject.domain.team.entity.Team;
 import com.group.miniproject.global.entity.BaseDateTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -32,14 +33,28 @@ public class Employee extends BaseDateTimeEntity {
     @Column(nullable = false)
     private LocalDate birthday;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
+
     @Builder
-    public Employee(String name, EmployeeRole role, LocalDate joinDate, LocalDate birthday) {
+    public Employee(String name, EmployeeRole role, LocalDate joinDate, LocalDate birthday, Team team) {
         parameterValidation(name, role, joinDate, birthday);
 
         this.name = name;
         this.role = role;
         this.joinDate = joinDate;
         this.birthday = birthday;
+        this.team = team;
+    }
+
+    public void joinTeam(Team team) {
+        if(this.team != null) {
+            this.team.getEmployees().remove(this);
+        }
+
+        this.team = team;
+        this.team.addEmployee(this);
     }
 
     private void parameterValidation(String name, EmployeeRole role, LocalDate joinDate, LocalDate birthday) {

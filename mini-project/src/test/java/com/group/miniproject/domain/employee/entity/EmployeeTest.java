@@ -19,7 +19,7 @@ class EmployeeTest {
     void createEmployee(String name, EmployeeRole role, LocalDate joinDate, LocalDate birthday) {
         // when
         // then
-        assertThatThrownBy(() -> new Employee(name, role, joinDate, birthday))
+        assertThatThrownBy(() -> new Employee(name, role, joinDate, birthday, null))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
