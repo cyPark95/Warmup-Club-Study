@@ -1,4 +1,4 @@
-package com.group.miniproject.presentation;
+package com.group.miniproject.domain.team.controller;
 
 import com.group.miniproject.domain.team.dto.request.TeamRegisterRequest;
 import com.group.miniproject.domain.team.service.TeamService;
