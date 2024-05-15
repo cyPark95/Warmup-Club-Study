@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class TeamService {
 
     private final TeamRepository teamRepository;
@@ -19,5 +20,10 @@ public class TeamService {
     public void saveTeam(TeamRegisterRequest request) {
         Team team = request.toTeam();
         teamRepository.save(team);
+    }
+
+    public Team getTeamByName(String name) {
+        return teamRepository.findByName(name)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("존재하지 않는 팀 이름[%s] 입니다.", name)));
     }
 }

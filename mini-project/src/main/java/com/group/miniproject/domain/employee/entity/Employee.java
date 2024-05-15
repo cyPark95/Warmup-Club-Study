@@ -57,6 +57,10 @@ public class Employee extends BaseDateTimeEntity {
         this.team.addEmployee(this);
     }
 
+    public boolean isManager() {
+        return this.role == EmployeeRole.MANAGER;
+    }
+
     private void parameterValidation(String name, EmployeeRole role, LocalDate joinDate, LocalDate birthday) {
         if (!StringUtils.hasText(name)) {
             throw new IllegalArgumentException(String.format("유효하지 않은 직원 이름[%s] 입니다.", name));

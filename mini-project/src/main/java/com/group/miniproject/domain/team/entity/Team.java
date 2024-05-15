@@ -39,4 +39,9 @@ public class Team extends BaseDateTimeEntity {
     public void addEmployee(Employee employee) {
         employees.add(employee);
     }
+
+    public boolean hasManager() {
+        return employees.stream()
+                .anyMatch(Employee::isManager);
+    }
 }
