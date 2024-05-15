@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -62,5 +64,35 @@ class TeamTest {
 
         // then
         assertThat(result).isTrue();
+    }
+
+    @DisplayName("팀의 매니저 조회 - 팀에 매니저가 없는 경우 null 반환")
+    @Test
+    void getManager_notFound() {
+        // given
+        Team team = TeamFixtureFactory.createTeam();
+        Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
+        team.addEmployee(employee);
+
+        // when
+        Optional<Employee> result = team.getManager();
+
+        // then
+        assertThat(result.isPresent()).isFalse();
+    }
+
+    @DisplayName("팀의 매니저 조회")
+    @Test
+    void getManager() {
+        // given
+        Team team = TeamFixtureFactory.createTeam();
+        Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MANAGER);
+        team.addEmployee(employee);
+
+        // when
+        Optional<Employee> result = team.getManager();
+
+        // then
+        assertThat(result.isPresent()).isTrue();
     }
 }
