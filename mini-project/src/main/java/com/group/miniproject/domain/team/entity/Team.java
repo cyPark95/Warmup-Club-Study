@@ -2,6 +2,8 @@ package com.group.miniproject.domain.team.entity;
 
 import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.global.entity.BaseDateTimeEntity;
+import com.group.miniproject.global.exception.ApiException;
+import com.group.miniproject.global.exception.ExceptionCode;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.util.StringUtils;
@@ -22,13 +24,13 @@ public class Team extends BaseDateTimeEntity {
     @Column(nullable = false, length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private final List<Employee> employees = new ArrayList<>();
 
     @Builder
     public Team(String name) {
         if (!StringUtils.hasText(name)) {
-            throw new IllegalArgumentException(String.format("유효하지 않은 팀 이름[%s] 입니다.", name));
+            throw new ApiException(String.format("유효하지 않은 팀 이름[%s] 입니다.", name), ExceptionCode.TEAM_NAME_INVALID);
         }
 
         this.name = name;

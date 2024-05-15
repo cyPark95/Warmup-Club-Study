@@ -3,6 +3,8 @@ package com.group.miniproject.domain.team.service;
 import com.group.miniproject.domain.team.dto.request.TeamRegisterRequest;
 import com.group.miniproject.domain.team.entity.Team;
 import com.group.miniproject.domain.team.repository.TeamRepository;
+import com.group.miniproject.global.exception.ApiException;
+import com.group.miniproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,6 @@ public class TeamService {
     public Team getTeamByName(String name) {
         log.debug("Find Team Name: {}", name);
         return teamRepository.findByName(name)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("존재하지 않는 팀 이름[%s] 입니다.", name)));
+                .orElseThrow(() -> new ApiException(String.format("존재하지 않는 팀 이름[%s] 입니다.", name), ExceptionCode.NOT_FOUND_ENTITY));
     }
 }

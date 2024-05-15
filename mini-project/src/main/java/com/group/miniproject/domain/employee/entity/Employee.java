@@ -2,6 +2,8 @@ package com.group.miniproject.domain.employee.entity;
 
 import com.group.miniproject.domain.team.entity.Team;
 import com.group.miniproject.global.entity.BaseDateTimeEntity;
+import com.group.miniproject.global.exception.ApiException;
+import com.group.miniproject.global.exception.ExceptionCode;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.util.StringUtils;
@@ -61,19 +63,19 @@ public class Employee extends BaseDateTimeEntity {
 
     private void parameterValidation(String name, EmployeeRole role, LocalDate joinDate, LocalDate birthday) {
         if (!StringUtils.hasText(name)) {
-            throw new IllegalArgumentException(String.format("유효하지 않은 직원 이름[%s] 입니다.", name));
+            throw new ApiException(String.format("유효하지 않은 직원 이름[%s] 입니다.", name), ExceptionCode.EMPLOYEE_NAME_INVALID);
         }
 
         if(role == null) {
-            throw new IllegalArgumentException("역할은 필수 값 입니다.");
+            throw new ApiException(ExceptionCode.EMPLOYEE_ROLE_NULL);
         }
 
         if(joinDate == null) {
-            throw new IllegalArgumentException("회사에 들어온 날짜는 필수 값 입니다.");
+            throw new ApiException(ExceptionCode.EMPLOYEE_JOIN_DATE_NULL);
         }
 
         if(birthday == null) {
-            throw new IllegalArgumentException("생일은 필수 값 입니다.");
+            throw new ApiException(ExceptionCode.EMPLOYEE_BIRTHDAY_NULL);
         }
     }
 }

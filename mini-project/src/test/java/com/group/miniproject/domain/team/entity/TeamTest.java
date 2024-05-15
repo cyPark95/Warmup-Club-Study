@@ -2,6 +2,7 @@ package com.group.miniproject.domain.team.entity;
 
 import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.domain.employee.entity.EmployeeRole;
+import com.group.miniproject.global.exception.ApiException;
 import com.group.miniproject.util.EmployeeFixtureFactory;
 import com.group.miniproject.util.TeamFixtureFactory;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +23,7 @@ class TeamTest {
         // when
         // then
         assertThatThrownBy(() -> new Team(name))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(ApiException.class);
     }
 
     @DisplayName("매니저 존재 검증 - 존재하지 않는 경우")

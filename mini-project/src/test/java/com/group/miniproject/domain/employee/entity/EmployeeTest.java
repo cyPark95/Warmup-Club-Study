@@ -1,5 +1,6 @@
 package com.group.miniproject.domain.employee.entity;
 
+import com.group.miniproject.global.exception.ApiException;
 import com.group.miniproject.util.EmployeeFixtureFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ class EmployeeTest {
         // when
         // then
         assertThatThrownBy(() -> new Employee(name, role, joinDate, birthday, null))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(ApiException.class);
     }
 
     @DisplayName("매니저 역할 확인 - 매니저가 아닌 경우")

@@ -5,6 +5,8 @@ import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.domain.employee.repository.EmployeeRepository;
 import com.group.miniproject.domain.team.entity.Team;
 import com.group.miniproject.domain.team.service.TeamService;
+import com.group.miniproject.global.exception.ApiException;
+import com.group.miniproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ public class EmployeeService {
         log.debug("Find Team: {}", team);
 
         if (request.isManager() && team.hasManager()) {
-            throw new IllegalArgumentException(String.format("[%s] 팀에는 이미 매니저가 존재합니다.", request.teamName()));
+            throw new ApiException(String.format("[%s] 팀에는 이미 매니저가 존재합니다.", request.teamName()), ExceptionCode.TEAM_ALREADY_HAS_MANAGER);
         }
 
         Employee employee = request.toEmployee();

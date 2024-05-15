@@ -3,6 +3,7 @@ package com.group.miniproject.domain.team.service;
 import com.group.miniproject.domain.team.dto.request.TeamRegisterRequest;
 import com.group.miniproject.domain.team.entity.Team;
 import com.group.miniproject.domain.team.repository.TeamRepository;
+import com.group.miniproject.global.exception.ApiException;
 import com.group.miniproject.util.TeamFixtureFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,7 @@ class TeamServiceTest {
         // when
         // then
         assertThatThrownBy(() -> teamService.getTeamByName("name"))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(ApiException.class);
     }
 
     @DisplayName("팀 이름으로 조회 성공")
