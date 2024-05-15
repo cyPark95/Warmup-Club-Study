@@ -24,7 +24,7 @@ public class EmployeeService {
     public void saveEmployee(EmployeeRegisterRequest request) {
         log.debug("Request Data: {}", request);
 
-        Team team = teamService.getTeamByName(request.teamName());
+        Team team = teamService.findTeamByName(request.teamName());
         log.debug("Find Team: {}", team);
 
         if (request.isManager() && team.hasManager()) {

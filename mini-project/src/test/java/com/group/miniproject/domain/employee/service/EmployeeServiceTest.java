@@ -43,7 +43,7 @@ class EmployeeServiceTest {
 
         EmployeeRegisterRequest request = EmployeeFixtureFactory.createEmployeeRegisterRequest(true, team.getName());
 
-        when(teamService.getTeamByName(team.getName())).thenReturn(team);
+        when(teamService.findTeamByName(team.getName())).thenReturn(team);
 
         // when
         // then
@@ -59,7 +59,7 @@ class EmployeeServiceTest {
 
         EmployeeRegisterRequest request = EmployeeFixtureFactory.createEmployeeRegisterRequest(false, team.getName());
 
-        when(teamService.getTeamByName(team.getName())).thenReturn(team);
+        when(teamService.findTeamByName(team.getName())).thenReturn(team);
 
         // when
         employeeService.saveEmployee(request);
@@ -76,7 +76,7 @@ class EmployeeServiceTest {
 
         EmployeeRegisterRequest request = EmployeeFixtureFactory.createEmployeeRegisterRequest(false, team.getName());
 
-        when(teamService.getTeamByName(team.getName())).thenReturn(team);
+        when(teamService.findTeamByName(team.getName())).thenReturn(team);
 
         // when
         employeeService.saveEmployee(request);
