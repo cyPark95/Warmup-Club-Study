@@ -1,7 +1,7 @@
 package com.group.miniproject.domain.employee.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.group.miniproject.domain.employee.dto.EmployeeRegisterRequest;
+import com.group.miniproject.domain.employee.dto.request.EmployeeRegisterRequest;
 import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.domain.employee.entity.EmployeeRole;
 import com.group.miniproject.domain.team.entity.Team;

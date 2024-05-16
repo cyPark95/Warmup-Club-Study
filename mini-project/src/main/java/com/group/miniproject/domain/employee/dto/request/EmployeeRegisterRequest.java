@@ -1,4 +1,4 @@
-package com.group.miniproject.domain.employee.dto;
+package com.group.miniproject.domain.employee.dto.request;
 
 import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.domain.employee.entity.EmployeeRole;

@@ -1,6 +1,6 @@
 package com.group.miniproject.domain.employee.service;
 
-import com.group.miniproject.domain.employee.dto.EmployeeRegisterRequest;
+import com.group.miniproject.domain.employee.dto.request.EmployeeRegisterRequest;
 import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.domain.employee.repository.EmployeeRepository;
 import com.group.miniproject.domain.team.entity.Team;
