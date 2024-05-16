@@ -37,41 +37,6 @@ class EmployeeServiceTest {
     @Mock
     private TeamService teamService;
 
-    @DisplayName("매니저 직원 등록 실패 - 이미 매니저 존재")
-    @Test
-    void saveEmployee_failHasManager() {
-        // given
-        Team team = TeamFixtureFactory.createTeam();
-        Employee manager = EmployeeFixtureFactory.createEmployee(EmployeeRole.MANAGER);
-        manager.joinTeam(team);
-
-        EmployeeRegisterRequest request = EmployeeFixtureFactory.createEmployeeRegisterRequest(true, team.getName());
-
-        when(teamService.findTeamByName(team.getName())).thenReturn(team);
-
-        // when
-        // then
-        assertThatThrownBy(() -> employeeService.saveEmployee(request))
-                .isInstanceOf(ApiException.class);
-    }
-
-    @DisplayName("매니저 직원 등록 성공 - 팀에 매니저 없음")
-    @Test
-    void saveEmployee_() {
-        // given
-        Team team = TeamFixtureFactory.createTeam();
-
-        EmployeeRegisterRequest request = EmployeeFixtureFactory.createEmployeeRegisterRequest(false, team.getName());
-
-        when(teamService.findTeamByName(team.getName())).thenReturn(team);
-
-        // when
-        employeeService.saveEmployee(request);
-
-        // then
-        verify(employeeRepository, atLeastOnce()).save(any(Employee.class));
-    }
-
     @DisplayName("멤버 직원 등록 성공")
     @Test
     void saveEmployee() {
@@ -99,7 +64,42 @@ class EmployeeServiceTest {
         verify(employeeRepository, atLeastOnce()).save(any(Employee.class));
     }
 
-    @DisplayName("직원 정보 조회")
+    @DisplayName("팀에 매니저가 없다면 매니저 직원 등록 성공")
+    @Test
+    void saveEmployee_() {
+        // given
+        Team team = TeamFixtureFactory.createTeam();
+
+        EmployeeRegisterRequest request = EmployeeFixtureFactory.createEmployeeRegisterRequest(false, team.getName());
+
+        when(teamService.findTeamByName(team.getName())).thenReturn(team);
+
+        // when
+        employeeService.saveEmployee(request);
+
+        // then
+        verify(employeeRepository, atLeastOnce()).save(any(Employee.class));
+    }
+
+    @DisplayName("이미 매니저가 존재하는 팀에 매니저를 등록할 경우 예외 발생")
+    @Test
+    void saveEmployee_failHasManager() {
+        // given
+        Team team = TeamFixtureFactory.createTeam();
+        Employee manager = EmployeeFixtureFactory.createEmployee(EmployeeRole.MANAGER);
+        manager.joinTeam(team);
+
+        EmployeeRegisterRequest request = EmployeeFixtureFactory.createEmployeeRegisterRequest(true, team.getName());
+
+        when(teamService.findTeamByName(team.getName())).thenReturn(team);
+
+        // when
+        // then
+        assertThatThrownBy(() -> employeeService.saveEmployee(request))
+                .isInstanceOf(ApiException.class);
+    }
+
+    @DisplayName("모든 직원 정보 조회 성공")
     @Test
     void findAllEmployee() {
         // given

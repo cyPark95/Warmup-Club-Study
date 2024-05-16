@@ -47,18 +47,6 @@ class TeamServiceTest {
         verify(teamRepository, atLeastOnce()).save(any(Team.class));
     }
 
-    @DisplayName("팀 이름으로 조회 실패 - 존재하지 않는 팀 이름")
-    @Test
-    void findTeamByName_notFoundName() {
-        // given
-        when(teamRepository.findByName(any(String.class))).thenReturn(Optional.empty());
-
-        // when
-        // then
-        assertThatThrownBy(() -> teamService.findTeamByName("name"))
-                .isInstanceOf(ApiException.class);
-    }
-
     @DisplayName("팀 이름으로 조회 성공")
     @Test
     void findTeamByName() {
@@ -74,27 +62,21 @@ class TeamServiceTest {
         assertThat(result).isEqualTo(team);
     }
 
-    @DisplayName("팀 정보 조회 - 매니저 없음")
+    @DisplayName("없는 팀의 이름으로 조회 시, 예외가 발생")
     @Test
-    void findAllTeam_hasNotManager() {
+    void findTeamByName_notFoundName() {
         // given
-        Team team = TeamFixtureFactory.createTeam();
-
-        when(teamRepository.findAllFetchEmployee()).thenReturn(List.of(team));
+        when(teamRepository.findByName(any(String.class))).thenReturn(Optional.empty());
 
         // when
-        List<TeamResponse> result = teamService.findAllTeam();
-
         // then
-        assertThat(result).hasSize(1);
-        assertThat(result.get(0).name()).isEqualTo(team.getName());
-        assertThat(result.get(0).manager()).isNull();
-        assertThat(result.get(0).memberCount()).isEqualTo(0);
+        assertThatThrownBy(() -> teamService.findTeamByName("name"))
+                .isInstanceOf(ApiException.class);
     }
 
-    @DisplayName("팀 정보 조회 - 팀원만 있는 경우")
+    @DisplayName("모든 팀 정보 조회 성공")
     @Test
-    void findAllTeam_onlyMember() {
+    void findAllTeam() {
         // given
         Team team = TeamFixtureFactory.createTeam();
         Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MANAGER);
@@ -110,5 +92,23 @@ class TeamServiceTest {
         assertThat(result.get(0).name()).isEqualTo(team.getName());
         assertThat(result.get(0).manager()).isEqualTo(employee.getName());
         assertThat(result.get(0).memberCount()).isEqualTo(1);
+    }
+
+    @DisplayName("팀 정보 조회 시, 매니저가 없으면 매니저 이름 null 반환")
+    @Test
+    void findAllTeam_hasNotManager() {
+        // given
+        Team team = TeamFixtureFactory.createTeam();
+
+        when(teamRepository.findAllFetchEmployee()).thenReturn(List.of(team));
+
+        // when
+        List<TeamResponse> result = teamService.findAllTeam();
+
+        // then
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).name()).isEqualTo(team.getName());
+        assertThat(result.get(0).manager()).isNull();
+        assertThat(result.get(0).memberCount()).isEqualTo(0);
     }
 }

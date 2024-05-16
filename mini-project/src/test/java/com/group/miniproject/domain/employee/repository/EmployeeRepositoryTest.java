@@ -25,7 +25,7 @@ class EmployeeRepositoryTest {
     @Autowired
     private TeamRepository teamRepository;
 
-    @DisplayName("직원과 팀 함께 조회")
+    @DisplayName("직원 조회 시, 팀 정보도 함께 조회")
     @Test
     void findAllFetchTeam() {
         // given

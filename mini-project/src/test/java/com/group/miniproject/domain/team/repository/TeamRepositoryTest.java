@@ -21,23 +21,7 @@ class TeamRepositoryTest {
     @Autowired
     private TeamRepository teamRepository;
 
-    @DisplayName("팀과 직원 함께 조회 - 팀원이 없는 경우")
-    @Test
-    void findAllFetchEmployee_emptyEmployee() {
-        // given
-        Team team = TeamFixtureFactory.createTeam();
-
-        teamRepository.save(team);
-
-        // when
-        List<Team> result = teamRepository.findAllFetchEmployee();
-
-        // then
-        assertThat(result.get(0)).isEqualTo(team);
-        assertThat(result.get(0).getEmployees().isEmpty()).isTrue();
-    }
-
-    @DisplayName("팀과 직원 함께 조회 - 팀원이 있는 경우")
+    @DisplayName("팀 정보 조회 시, 팀원 목록도 함께 조회")
     @Test
     void findAllFetchEmployee() {
         // given
@@ -53,5 +37,21 @@ class TeamRepositoryTest {
         // then
         assertThat(result.get(0)).isEqualTo(team);
         assertThat(result.get(0).getEmployees().get(0)).isEqualTo(employee);
+    }
+
+    @DisplayName("팀 정보 조회 시, 팀원이 없으면 빈 목록 반환")
+    @Test
+    void findAllFetchEmployee_emptyEmployee() {
+        // given
+        Team team = TeamFixtureFactory.createTeam();
+
+        teamRepository.save(team);
+
+        // when
+        List<Team> result = teamRepository.findAllFetchEmployee();
+
+        // then
+        assertThat(result.get(0)).isEqualTo(team);
+        assertThat(result.get(0).getEmployees().isEmpty()).isTrue();
     }
 }

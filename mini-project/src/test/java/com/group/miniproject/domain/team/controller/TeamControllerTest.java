@@ -62,7 +62,7 @@ class TeamControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("팀 등록 실패 - 유효하지 않은 Parameter")
+    @DisplayName("팀 등록 시, 유효하지 않은 Parameter인 경우 예외 발생")
     @ParameterizedTest
     @NullAndEmptySource
     void registerTeam_invalidParameter(String name) throws Exception {
@@ -78,7 +78,7 @@ class TeamControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @DisplayName("전체 팀 조회")
+    @DisplayName("전체 팀 정보 조회")
     @Test
     void getAllTeam() throws Exception {
         // given
@@ -88,12 +88,12 @@ class TeamControllerTest {
         );
 
         // when
-        // then
         MvcResult result = mockMvc.perform(get("/api/v1/teams"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
 
+        // then
         List<TeamResponse> response = objectMapper.readValue(result.getResponse().getContentAsString(StandardCharsets.UTF_8), new TypeReference<>() {});
         Tuple[] expectedTuples = teams.stream()
                 .map(team -> tuple(team.getName(), team.getManagerName(), team.getMemberCount()))

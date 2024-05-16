@@ -49,7 +49,7 @@ class EmployeeControllerTest {
     @Autowired
     private TeamRepository teamRepository;
 
-    @DisplayName("멤버 직원 등록")
+    @DisplayName("멤버 직원 등록 성공")
     @Test
     void registerMemberEmployee() throws Exception {
         // given
@@ -67,7 +67,7 @@ class EmployeeControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("매니저 직원 등록")
+    @DisplayName("매니저 직원 등록 성공")
     @Test
     void registerManagerEmployee() throws Exception {
         // given
@@ -85,10 +85,10 @@ class EmployeeControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("직원 등록 실패 - 유효하지 않은 Parameter")
+    @DisplayName("직원 등록 시, 유효하지 않은 Parameter인 경우 예외 발생")
     @ParameterizedTest
     @MethodSource("invalidRegisterParameter")
-    void registerEmployee_failInvalidParameter(EmployeeRegisterRequest request) throws Exception {
+    void registerEmployee_invalidParameter(EmployeeRegisterRequest request) throws Exception {
         // when
         // then
         mockMvc.perform(post("/api/v1/employees")
@@ -98,9 +98,9 @@ class EmployeeControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @DisplayName("매니저 직원 등록 실패 - 이미 매니저 존재")
+    @DisplayName("이미 매니저가 존재하는 팀에 매니저 직원 등록 시, 예외 발생")
     @Test
-    void registerEmployee_haseManager() throws Exception {
+    void registerEmployee_hasManager() throws Exception {
         // given
         Team team = TeamFixtureFactory.createTeam();
         Employee manager = EmployeeFixtureFactory.createEmployee(EmployeeRole.MANAGER);
@@ -118,7 +118,7 @@ class EmployeeControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @DisplayName("전체 직원 조회")
+    @DisplayName("전체 직원 정보 조회")
     @Test
     void getAllEmployee() throws Exception {
         // given

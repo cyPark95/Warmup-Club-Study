@@ -10,15 +10,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayName("팀 Domain 검증")
 class TeamTest {
 
-    @DisplayName("Team 객체 생성 실패 - 유효하지 Parameter")
+    @DisplayName("Team 객체 생성 시, 유효하지 않은 Parameter인 경우 예외 발생")
     @ParameterizedTest
     @NullAndEmptySource
     void createTeam_invalidParameter(String name) {
@@ -28,26 +26,7 @@ class TeamTest {
                 .isInstanceOf(ApiException.class);
     }
 
-    @DisplayName("매니저 존재 검증 - 존재하지 않는 경우")
-    @Test
-    void hasNotManage() {
-        // given
-        Team team = TeamFixtureFactory.createTeam();
-
-        Employee firstEmployee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
-        Employee secondEmployee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
-
-        team.addEmployee(firstEmployee);
-        team.addEmployee(secondEmployee);
-
-        // when
-        boolean result = team.hasManager();
-
-        // then
-        assertThat(result).isFalse();
-    }
-
-    @DisplayName("매니저 존재 검증 - 존재하는 경우")
+    @DisplayName("매니저가 존재하면 True 반환")
     @Test
     void hasManage() {
         // given
@@ -66,24 +45,28 @@ class TeamTest {
         assertThat(result).isTrue();
     }
 
-    @DisplayName("팀의 매니저 이름 조회 - 팀에 매니저가 없는 경우 null 반환")
+    @DisplayName("매니저가 존재하지 않으면 False 반환")
     @Test
-    void getManagerName_notFound() {
+    void hasNotManage() {
         // given
         Team team = TeamFixtureFactory.createTeam();
-        Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
-        team.addEmployee(employee);
+
+        Employee firstEmployee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
+        Employee secondEmployee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
+
+        team.addEmployee(firstEmployee);
+        team.addEmployee(secondEmployee);
 
         // when
-        String result = team.getManagerName();
+        boolean result = team.hasManager();
 
         // then
-        assertThat(result).isNull();
+        assertThat(result).isFalse();
     }
 
-    @DisplayName("팀의 매니저 조회")
+    @DisplayName("팀에 매니저 이름 조회")
     @Test
-    void getManager() {
+    void getManagerName() {
         // given
         Team team = TeamFixtureFactory.createTeam();
         Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MANAGER);
@@ -94,5 +77,20 @@ class TeamTest {
 
         // then
         assertThat(result).isEqualTo(employee.getName());
+    }
+
+    @DisplayName("팀에 매니저가 없는 경우 null 반환")
+    @Test
+    void getManagerName_isNull() {
+        // given
+        Team team = TeamFixtureFactory.createTeam();
+        Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
+        team.addEmployee(employee);
+
+        // when
+        String result = team.getManagerName();
+
+        // then
+        assertThat(result).isNull();
     }
 }

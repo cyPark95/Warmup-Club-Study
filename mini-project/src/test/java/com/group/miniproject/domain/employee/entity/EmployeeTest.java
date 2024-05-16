@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("직원 Domain 검증")
 class EmployeeTest {
 
-    @DisplayName("Employee 객체 생성 실패 - 유효하지 않은 Parameter")
+    @DisplayName("Employee 객체 생성 시, 유효하지 않은 Parameter인 경우 예외 발생")
     @ParameterizedTest
     @MethodSource("invalidConstructorParameter")
     void createEmployee_invalidParameter(String name, EmployeeRole role, LocalDate joinDate, LocalDate birthday) {
@@ -27,20 +27,7 @@ class EmployeeTest {
                 .isInstanceOf(ApiException.class);
     }
 
-    @DisplayName("매니저 역할 확인 - 매니저가 아닌 경우")
-    @Test
-    void hasManage() {
-        // given
-        Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
-
-        // when
-        boolean result = employee.isManager();
-
-        // then
-        assertThat(result).isFalse();
-    }
-
-    @DisplayName("매니저 역할 확인 - 매니저인 경우")
+    @DisplayName("매니저라면 True 반환")
     @Test
     void isManager() {
         // given
@@ -51,6 +38,19 @@ class EmployeeTest {
 
         // then
         assertThat(result).isTrue();
+    }
+
+    @DisplayName("매니저가 아닌 경우 False 반환")
+    @Test
+    void isNotManager() {
+        // given
+        Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
+
+        // when
+        boolean result = employee.isManager();
+
+        // then
+        assertThat(result).isFalse();
     }
 
     private static Stream<Arguments> invalidConstructorParameter() {
