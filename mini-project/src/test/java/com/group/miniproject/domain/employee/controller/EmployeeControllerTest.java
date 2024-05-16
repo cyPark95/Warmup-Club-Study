@@ -1,13 +1,16 @@
 package com.group.miniproject.domain.employee.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group.miniproject.domain.employee.dto.request.EmployeeRegisterRequest;
+import com.group.miniproject.domain.employee.dto.response.EmployeeResponse;
 import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.domain.employee.entity.EmployeeRole;
 import com.group.miniproject.domain.team.entity.Team;
 import com.group.miniproject.domain.team.repository.TeamRepository;
 import com.group.miniproject.util.EmployeeFixtureFactory;
 import com.group.miniproject.util.TeamFixtureFactory;
+import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,10 +20,17 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.groups.Tuple.tuple;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -108,6 +118,31 @@ class EmployeeControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @DisplayName("전체 직원 조회")
+    @Test
+    void getAllEmployee() throws Exception {
+        // given
+        Team team = TeamFixtureFactory.createTeam();
+        List<Employee> employees = IntStream.range(0, 3)
+                .mapToObj(i -> saveMemberWithTeam(team))
+                .toList();
+
+        // when
+        MvcResult result = mockMvc.perform(get("/api/v1/employees"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // then
+        List<EmployeeResponse> response = objectMapper.readValue(result.getResponse().getContentAsString(StandardCharsets.UTF_8), new TypeReference<>() {});
+        Tuple[] expectedTuples = employees.stream()
+                .map(employee -> tuple(employee.getName(), team.getName(), employee.getRole(), employee.getBirthday(), employee.getWorkStartDate()))
+                .toArray(Tuple[]::new);
+
+        assertThat(response).extracting("name", "teamName", "role", "birthday", "workStartDate")
+                .contains(expectedTuples);
+    }
+
     private static Stream<EmployeeRegisterRequest> invalidRegisterParameter() {
         return Stream.of(
                 new EmployeeRegisterRequest(null, "team_name", true, LocalDate.now(), LocalDate.of(1995, 10, 7)),
@@ -129,5 +164,12 @@ class EmployeeControllerTest {
                 new EmployeeRegisterRequest("employee_name", "", true, LocalDate.now(), null),
                 new EmployeeRegisterRequest("", "", true, LocalDate.now(), null)
         );
+    }
+
+    private Employee saveMemberWithTeam(Team team) {
+        Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
+        employee.joinTeam(team);
+        teamRepository.save(team);
+        return employee;
     }
 }
