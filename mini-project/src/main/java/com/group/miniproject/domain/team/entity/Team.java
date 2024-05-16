@@ -51,4 +51,8 @@ public class Team extends BaseDateTimeEntity {
                 .filter(Employee::isManager)
                 .findFirst();
     }
+
+    public long getMemberCount() {
+        return this.employees.size();
+    }
 }

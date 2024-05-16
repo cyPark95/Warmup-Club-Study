@@ -92,7 +92,7 @@ class TeamServiceTest {
         assertThat(result.get(0).memberCount()).isEqualTo(0);
     }
 
-    @DisplayName("팀 정보 조회 - 팀원이 있는 경우")
+    @DisplayName("팀 정보 조회 - 팀원만 있는 경우")
     @Test
     void findAllTeam_onlyMember() {
         // given

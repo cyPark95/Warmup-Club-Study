@@ -13,7 +13,7 @@ public record TeamResponse(
         return new TeamResponse(
                 team.getName(),
                 getManagerName(team),
-                team.getEmployees().size()
+                team.getMemberCount()
         );
     }
 
@@ -22,5 +22,4 @@ public record TeamResponse(
                 .map(Employee::getName)
                 .orElse(null);
     }
-
 }
