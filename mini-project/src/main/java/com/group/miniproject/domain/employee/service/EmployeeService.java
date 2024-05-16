@@ -1,6 +1,7 @@
 package com.group.miniproject.domain.employee.service;
 
 import com.group.miniproject.domain.employee.dto.request.EmployeeRegisterRequest;
+import com.group.miniproject.domain.employee.dto.response.EmployeeResponse;
 import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.domain.employee.repository.EmployeeRepository;
 import com.group.miniproject.domain.team.entity.Team;
@@ -12,9 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
@@ -36,5 +40,11 @@ public class EmployeeService {
 
         log.debug("Save Employee: {}", employee);
         employeeRepository.save(employee);
+    }
+
+    public List<EmployeeResponse> findAllEmployee() {
+        return employeeRepository.findAllFetchTeam().stream()
+                .map(EmployeeResponse::from)
+                .toList();
     }
 }

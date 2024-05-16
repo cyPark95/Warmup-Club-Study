@@ -61,6 +61,10 @@ public class Employee extends BaseDateTimeEntity {
         return this.role == EmployeeRole.MANAGER;
     }
 
+    public String getTeamName() {
+        return this.team.getName();
+    }
+
     private void parameterValidation(String name, EmployeeRole role, LocalDate joinDate, LocalDate birthday) {
         if (!StringUtils.hasText(name)) {
             throw new ApiException(String.format("유효하지 않은 직원 이름[%s] 입니다.", name), ExceptionCode.EMPLOYEE_NAME_INVALID);
