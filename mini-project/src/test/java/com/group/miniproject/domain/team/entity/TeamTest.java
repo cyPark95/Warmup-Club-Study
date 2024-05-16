@@ -66,19 +66,19 @@ class TeamTest {
         assertThat(result).isTrue();
     }
 
-    @DisplayName("팀의 매니저 조회 - 팀에 매니저가 없는 경우 null 반환")
+    @DisplayName("팀의 매니저 이름 조회 - 팀에 매니저가 없는 경우 null 반환")
     @Test
-    void getManager_notFound() {
+    void getManagerName_notFound() {
         // given
         Team team = TeamFixtureFactory.createTeam();
         Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
         team.addEmployee(employee);
 
         // when
-        Optional<Employee> result = team.getManager();
+        String result = team.getManagerName();
 
         // then
-        assertThat(result.isPresent()).isFalse();
+        assertThat(result).isNull();
     }
 
     @DisplayName("팀의 매니저 조회")
@@ -90,9 +90,9 @@ class TeamTest {
         team.addEmployee(employee);
 
         // when
-        Optional<Employee> result = team.getManager();
+        String result = team.getManagerName();
 
         // then
-        assertThat(result.isPresent()).isTrue();
+        assertThat(result).isEqualTo(employee.getName());
     }
 }
