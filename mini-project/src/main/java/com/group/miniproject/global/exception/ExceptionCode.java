@@ -15,7 +15,7 @@ public enum ExceptionCode {
 
     EMPLOYEE_NAME_INVALID("유효하지 않은 직원 이름입니다.", HttpStatus.BAD_REQUEST),
     EMPLOYEE_ROLE_NULL("직원의 역할은 필수 값 입니다.", HttpStatus.BAD_REQUEST),
-    EMPLOYEE_JOIN_DATE_NULL("직원 입사 일자는 필수 값 입니다.", HttpStatus.BAD_REQUEST),
+    EMPLOYEE_WORK_START_DATE_NULL("직원 입사 일자는 필수 값 입니다.", HttpStatus.BAD_REQUEST),
     EMPLOYEE_BIRTHDAY_NULL("직원 생일은 필수 값 입니다.", HttpStatus.BAD_REQUEST),
     ;
 

@@ -24,7 +24,7 @@ public record EmployeeRegisterRequest(
         return Employee.builder()
                 .name(this.name)
                 .role(this.isManager ? EmployeeRole.MANAGER : EmployeeRole.MEMBER)
-                .joinDate(this.joinDate)
+                .workStartDate(this.joinDate)
                 .birthday(this.birthday)
                 .build();
     }

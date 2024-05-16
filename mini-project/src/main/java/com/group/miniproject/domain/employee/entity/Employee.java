@@ -28,7 +28,7 @@ public class Employee extends BaseDateTimeEntity {
     private EmployeeRole role;
 
     @Column(nullable = false)
-    private LocalDate joinDate;
+    private LocalDate workStartDate;
 
     @Column(nullable = false)
     private LocalDate birthday;
@@ -38,12 +38,12 @@ public class Employee extends BaseDateTimeEntity {
     private Team team;
 
     @Builder
-    public Employee(String name, EmployeeRole role, LocalDate joinDate, LocalDate birthday, Team team) {
-        parameterValidation(name, role, joinDate, birthday);
+    public Employee(String name, EmployeeRole role, LocalDate workStartDate, LocalDate birthday, Team team) {
+        parameterValidation(name, role, workStartDate, birthday);
 
         this.name = name;
         this.role = role;
-        this.joinDate = joinDate;
+        this.workStartDate = workStartDate;
         this.birthday = birthday;
         this.team = team;
     }
@@ -71,7 +71,7 @@ public class Employee extends BaseDateTimeEntity {
         }
 
         if(joinDate == null) {
-            throw new ApiException(ExceptionCode.EMPLOYEE_JOIN_DATE_NULL);
+            throw new ApiException(ExceptionCode.EMPLOYEE_WORK_START_DATE_NULL);
         }
 
         if(birthday == null) {
