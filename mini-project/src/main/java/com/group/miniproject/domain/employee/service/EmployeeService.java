@@ -47,4 +47,9 @@ public class EmployeeService {
                 .map(EmployeeResponse::from)
                 .toList();
     }
+
+    public Employee getEmployee(Long id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new ApiException(String.format("존재하지 않는 직원 ID[%d] 입니다.", id), ExceptionCode.NOT_FOUND_ENTITY));
+    }
 }

@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -119,5 +120,33 @@ class EmployeeServiceTest {
         assertThat(result.get(0).role()).isEqualTo(employee.getRole());
         assertThat(result.get(0).birthday()).isEqualTo(employee.getBirthday());
         assertThat(result.get(0).workStartDate()).isEqualTo(employee.getWorkStartDate());
+    }
+
+    @DisplayName("직원 ID로 조회 성공")
+    @Test
+    void getEmployee() {
+        // given
+        Long employeeId = -1L;
+        Employee employee = EmployeeFixtureFactory.createEmployee(EmployeeRole.MEMBER);
+
+        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
+
+        // when
+        Employee result = employeeService.getEmployee(employeeId);
+
+        // then
+        assertThat(result).isEqualTo(employee);
+    }
+
+    @DisplayName("없는 직원의 ID로 조회 시, 예외가 발생")
+    @Test
+    void findTeamByName_notFoundName() {
+        // given
+        when(employeeRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        // when
+        // then
+        assertThatThrownBy(() -> employeeService.getEmployee(-1L))
+                .isInstanceOf(ApiException.class);
     }
 }

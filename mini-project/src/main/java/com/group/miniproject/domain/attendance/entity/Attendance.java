@@ -35,6 +35,10 @@ public class Attendance extends BaseDateTimeEntity {
         this.employee = employee;
     }
 
+    public void clockIn() {
+        this.clockIn = LocalDateTime.now();
+    }
+
     private void parameterValidation(Employee employee) {
         if(employee == null) {
             throw new ApiException(ExceptionCode.EMPLOYEE_IS_NULL);

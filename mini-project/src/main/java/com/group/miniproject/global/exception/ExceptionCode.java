@@ -18,6 +18,8 @@ public enum ExceptionCode {
     EMPLOYEE_ROLE_NULL("직원의 역할은 필수 값 입니다.", HttpStatus.BAD_REQUEST),
     EMPLOYEE_WORK_START_DATE_NULL("직원 입사 일자는 필수 값 입니다.", HttpStatus.BAD_REQUEST),
     EMPLOYEE_BIRTHDAY_NULL("직원 생일은 필수 값 입니다.", HttpStatus.BAD_REQUEST),
+
+    ATTENDANCE_ALREADY_CLOCK_IN("이미 출근한 기록이 있습니다.", HttpStatus.BAD_REQUEST)
     ;
 
     private final String message;
