@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -45,12 +46,10 @@ public class Team extends BaseDateTimeEntity {
                 .anyMatch(Employee::isManager);
     }
 
-    public String getManagerName() {
+    public Optional<Employee> getManager() {
         return employees.stream()
                 .filter(Employee::isManager)
-                .map(Employee::getName)
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     public long getMemberCount() {

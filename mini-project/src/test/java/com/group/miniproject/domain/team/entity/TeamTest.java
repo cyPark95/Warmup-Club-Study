@@ -73,7 +73,9 @@ class TeamTest {
         team.addEmployee(employee);
 
         // when
-        String result = team.getManagerName();
+        String result = team.getManager()
+                .map(Employee::getName)
+                .orElse(null);
 
         // then
         assertThat(result).isEqualTo(employee.getName());
@@ -88,7 +90,9 @@ class TeamTest {
         team.addEmployee(employee);
 
         // when
-        String result = team.getManagerName();
+        String result = team.getManager()
+                .map(Employee::getName)
+                .orElse(null);
 
         // then
         assertThat(result).isNull();

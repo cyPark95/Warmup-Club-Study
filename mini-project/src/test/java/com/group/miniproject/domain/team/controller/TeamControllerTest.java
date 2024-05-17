@@ -96,7 +96,7 @@ class TeamControllerTest {
         // then
         List<TeamResponse> response = objectMapper.readValue(result.getResponse().getContentAsString(StandardCharsets.UTF_8), new TypeReference<>() {});
         Tuple[] expectedTuples = teams.stream()
-                .map(team -> tuple(team.getName(), team.getManagerName(), team.getMemberCount()))
+                .map(team -> tuple(team.getName(), getManagerName(team), team.getMemberCount()))
                 .toArray(Tuple[]::new);
 
         assertThat(response).extracting("name", "manager", "memberCount")
@@ -111,5 +111,9 @@ class TeamControllerTest {
         });
 
         return teamRepository.save(team);
+    }
+
+    private String getManagerName(Team team) {
+        return team.getManager().map(Employee::getName).orElse(null);
     }
 }

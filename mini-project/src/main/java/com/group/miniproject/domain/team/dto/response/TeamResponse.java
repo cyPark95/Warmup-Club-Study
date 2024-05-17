@@ -1,5 +1,6 @@
 package com.group.miniproject.domain.team.dto.response;
 
+import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.domain.team.entity.Team;
 
 public record TeamResponse(
@@ -11,7 +12,9 @@ public record TeamResponse(
     public static TeamResponse from(Team team) {
         return new TeamResponse(
                 team.getName(),
-                team.getManagerName(),
+                team.getManager()
+                        .map(Employee::getName)
+                        .orElse(null),
                 team.getMemberCount()
         );
     }
