@@ -38,7 +38,7 @@ class TeamServiceTest {
     @Test
     void saveTeam() {
         // given
-        TeamRegisterRequest request = new TeamRegisterRequest("team_name");
+        TeamRegisterRequest request = TeamFixtureFactory.createTeamRegisterRequest();
 
         // when
         teamService.saveTeam(request);

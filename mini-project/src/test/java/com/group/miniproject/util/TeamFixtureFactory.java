@@ -1,5 +1,6 @@
 package com.group.miniproject.util;
 
+import com.group.miniproject.domain.team.dto.request.TeamRegisterRequest;
 import com.group.miniproject.domain.team.entity.Team;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
@@ -26,5 +27,9 @@ public class TeamFixtureFactory {
 
         return new EasyRandom(parameters)
                 .nextObject(Team.class);
+    }
+
+    public static TeamRegisterRequest createTeamRegisterRequest() {
+        return new TeamRegisterRequest(new StringRandomizer(50).getRandomValue());
     }
 }

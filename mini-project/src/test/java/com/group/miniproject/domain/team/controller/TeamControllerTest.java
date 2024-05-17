@@ -51,7 +51,7 @@ class TeamControllerTest {
     @Test
     void registerTeam() throws Exception {
         // given
-        TeamRegisterRequest request = new TeamRegisterRequest("name");
+        TeamRegisterRequest request = TeamFixtureFactory.createTeamRegisterRequest();
 
         // when
         // then
