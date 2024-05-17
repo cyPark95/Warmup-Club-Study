@@ -22,3 +22,15 @@ CREATE TABLE `employee`
     PRIMARY KEY (`id`),
     FOREIGN KEY (`team_id`) REFERENCES team (id)
 );
+
+CREATE TABLE `attendance`
+(
+    `id`          BIGINT AUTO_INCREMENT COMMENT '식별 값(PK)',
+    `employee_id` BIGINT   NOT NULL COMMENT '직원 식별 값(FK)',
+    `clock_in`    DATETIME NOT NULL COMMENT '출근 시간',
+    `clock_out`   DATETIME COMMENT '퇴근 시간',
+    `created_at`  DATETIME NOT NULL COMMENT '생성 날짜',
+    `updated_at`  DATETIME NOT NULL COMMENT '최종 수정 날짜',
+
+    PRIMARY KEY (`id`)
+)
