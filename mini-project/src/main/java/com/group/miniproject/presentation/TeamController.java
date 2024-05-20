@@ -1,7 +1,7 @@
 package com.group.miniproject.presentation;
 
 import com.group.miniproject.domain.team.dto.request.TeamRegisterRequest;
-import com.group.miniproject.domain.team.dto.response.TeamResponse;
+import com.group.miniproject.domain.team.dto.response.TeamInfoResponse;
 import com.group.miniproject.domain.team.service.TeamService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class TeamController {
     }
 
     @GetMapping
-    public List<TeamResponse> getAllTeam() {
+    public List<TeamInfoResponse> getAllTeam() {
         return teamService.findAllTeam();
     }
 }

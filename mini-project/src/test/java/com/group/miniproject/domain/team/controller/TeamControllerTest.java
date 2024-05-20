@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.domain.employee.entity.EmployeeRole;
 import com.group.miniproject.domain.team.dto.request.TeamRegisterRequest;
-import com.group.miniproject.domain.team.dto.response.TeamResponse;
+import com.group.miniproject.domain.team.dto.response.TeamInfoResponse;
 import com.group.miniproject.domain.team.entity.Team;
 import com.group.miniproject.domain.team.repository.TeamRepository;
 import com.group.miniproject.util.EmployeeFixtureFactory;
@@ -94,7 +94,7 @@ class TeamControllerTest {
                 .andReturn();
 
         // then
-        List<TeamResponse> response = objectMapper.readValue(result.getResponse().getContentAsString(StandardCharsets.UTF_8), new TypeReference<>() {});
+        List<TeamInfoResponse> response = objectMapper.readValue(result.getResponse().getContentAsString(StandardCharsets.UTF_8), new TypeReference<>() {});
         Tuple[] expectedTuples = teams.stream()
                 .map(team -> tuple(team.getName(), getManagerName(team), team.getMemberCount()))
                 .toArray(Tuple[]::new);

@@ -1,7 +1,7 @@
 package com.group.miniproject.domain.team.service;
 
 import com.group.miniproject.domain.team.dto.request.TeamRegisterRequest;
-import com.group.miniproject.domain.team.dto.response.TeamResponse;
+import com.group.miniproject.domain.team.dto.response.TeamInfoResponse;
 import com.group.miniproject.domain.team.entity.Team;
 import com.group.miniproject.domain.team.repository.TeamRepository;
 import com.group.miniproject.global.exception.ApiException;
@@ -37,9 +37,9 @@ public class TeamService {
                 .orElseThrow(() -> new ApiException(String.format("존재하지 않는 팀 이름[%s] 입니다.", name), ExceptionCode.NOT_FOUND_ENTITY));
     }
 
-    public List<TeamResponse> findAllTeam() {
+    public List<TeamInfoResponse> findAllTeam() {
         return teamRepository.findAllFetchEmployee().stream()
-                .map(TeamResponse::from)
+                .map(TeamInfoResponse::from)
                 .toList();
     }
 }

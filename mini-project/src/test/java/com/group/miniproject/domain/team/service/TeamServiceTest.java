@@ -3,7 +3,7 @@ package com.group.miniproject.domain.team.service;
 import com.group.miniproject.domain.employee.entity.Employee;
 import com.group.miniproject.domain.employee.entity.EmployeeRole;
 import com.group.miniproject.domain.team.dto.request.TeamRegisterRequest;
-import com.group.miniproject.domain.team.dto.response.TeamResponse;
+import com.group.miniproject.domain.team.dto.response.TeamInfoResponse;
 import com.group.miniproject.domain.team.entity.Team;
 import com.group.miniproject.domain.team.repository.TeamRepository;
 import com.group.miniproject.global.exception.ApiException;
@@ -85,7 +85,7 @@ class TeamServiceTest {
         when(teamRepository.findAllFetchEmployee()).thenReturn(List.of(team));
 
         // when
-        List<TeamResponse> result = teamService.findAllTeam();
+        List<TeamInfoResponse> result = teamService.findAllTeam();
 
         // then
         assertThat(result).hasSize(1);
@@ -103,7 +103,7 @@ class TeamServiceTest {
         when(teamRepository.findAllFetchEmployee()).thenReturn(List.of(team));
 
         // when
-        List<TeamResponse> result = teamService.findAllTeam();
+        List<TeamInfoResponse> result = teamService.findAllTeam();
 
         // then
         assertThat(result).hasSize(1);

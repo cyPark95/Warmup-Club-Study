@@ -26,8 +26,6 @@ public class EmployeeService {
 
     @Transactional
     public void saveEmployee(EmployeeRegisterRequest request) {
-        log.debug("Request Data: {}", request);
-
         Team team = teamService.findTeamByName(request.teamName());
         log.debug("Find Team: {}", team);
 
