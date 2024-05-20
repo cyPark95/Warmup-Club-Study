@@ -1,4 +1,4 @@
-package com.group.miniproject.domain.attendance.controller;
+package com.group.miniproject.presentation;
 
 import com.group.miniproject.domain.attendance.dto.request.AttendanceClockInRequest;
 import com.group.miniproject.domain.attendance.service.AttendanceService;

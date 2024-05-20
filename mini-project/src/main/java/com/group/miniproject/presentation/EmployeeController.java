@@ -1,4 +1,4 @@
-package com.group.miniproject.domain.employee.controller;
+package com.group.miniproject.presentation;
 
 import com.group.miniproject.domain.employee.dto.request.EmployeeRegisterRequest;
 import com.group.miniproject.domain.employee.dto.response.EmployeeResponse;
